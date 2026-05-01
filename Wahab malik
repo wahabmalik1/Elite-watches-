@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wahab Watches</title>
+
+<style>
+body { font-family: Arial; margin:0; background:#f5f5f5; }
+
+header {
+  background:black; color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.menu { font-size:25px; cursor:pointer; }
+
+.sidebar {
+  position:fixed;
+  top:0; right:-250px;
+  width:200px; height:100%;
+  background:black; color:white;
+  padding:20px;
+  transition:0.3s;
+}
+
+.sidebar a {
+  display:block;
+  color:white;
+  margin:15px 0;
+  text-decoration:none;
+}
+
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+.card {
+  background:white;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.card img { width:100%; }
+
+button {
+  background:green;
+  color:white;
+  border:none;
+  padding:10px;
+  margin-top:5px;
+  cursor:pointer;
+}
+
+.cart {
+  position:fixed;
+  bottom:0;
+  left:0; right:0;
+  background:white;
+  padding:10px;
+  box-shadow:0 -2px 10px rgba(0,0,0,0.2);
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h2>Wahab Watches</h2>
+  <div class="menu" onclick="toggleMenu()">☰</div>
+</header>
+
+<div class="sidebar" id="sidebar">
+  <h3>Menu</h3>
+  <a href="#">Home</a>
+  <a href="#" onclick="orderNow()">Order Now</a>
+  <a href="https://wa.me/923091144241">Contact WhatsApp</a>
+</div>
+
+<div class="products">
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+    <h3>Luxury Watch</h3>
+    <p>Rs 2500</p>
+    <button onclick="addToCart('Luxury Watch',2500)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df">
+    <h3>Smart Watch</h3>
+    <p>Rs 3000</p>
+    <button onclick="addToCart('Smart Watch',3000)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
+    <h3>Classic Watch</h3>
+    <p>Rs 2000</p>
+    <button onclick="addToCart('Classic Watch',2000)">Add to Cart</button>
+  </div>
+
+</div>
+
+<div class="cart">
+  <span id="cartText">Cart: 0 items</span>
+  <button onclick="orderNow()">Order on WhatsApp</button>
+</div>
+
+<script>
+let cart = [];
+let total = 0;
+
+function toggleMenu() {
+  let menu = document.getElementById("sidebar");
+  menu.style.right = (menu.style.right === "0px") ? "-250px" : "0px";
+}
+
+function addToCart(name, price) {
+  cart.push(name + " Rs" + price);
+  total += price;
+  document.getElementById("cartText").innerText =
+    "Cart: " + cart.length + " items | Total Rs " + total;
+}
+
+function orderNow() {
+  let message = "Order:%0A";
+  cart.forEach(item => {
+    message += item + "%0A";
+  });
+  message += "Total: Rs " + total + "%0A%0A";
+  message += "Payment JazzCash/EasyPaisa par karein aur screenshot bhejein.";
+
+  window.open("https://wa.me/923091144241?text=" + message);
+}
+</script>
+
+</body>
+</html>
